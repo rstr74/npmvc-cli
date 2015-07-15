@@ -4,7 +4,13 @@
 ### install
 
 ```
-npm install npmvc-cli
+npm install npmvc-cli -g
+```
+
+### uninstall
+
+```
+npm uninstall npmvc-cli -g
 ```
 
 

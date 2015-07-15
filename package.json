@@ -1,6 +1,6 @@
 {
   "name": "npmvc-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,6 @@
     "node-dir":"0.1.8"
   },
   "bin": {
-    "npmvc-cli": "index.js"
+    "npmvc-cli": "bin/index.js"
   }
 }
