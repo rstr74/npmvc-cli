@@ -1,0 +1,21 @@
+{
+  "name": "npmvc-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "grunt": "0.4.1",
+    "prompt": "0.2.9",
+    "moment": "2.0.0",
+    "mkdirp": "0.3.5",
+    "node-dir":"0.1.8"
+  },
+  "bin": {
+    "npmvc-cli": "index.js"
+  }
+}
