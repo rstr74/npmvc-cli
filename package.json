@@ -1,6 +1,6 @@
 {
   "name": "npmvc-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,5 +17,10 @@
   },
   "bin": {
     "npmvc-cli": "bin/index.js"
+  },
+   "homepage": "https://github.com/rstr74/npmvc-cli",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rstr74/npmvc-cli.git"
   }
 }
