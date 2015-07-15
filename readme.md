@@ -14,19 +14,31 @@ npm uninstall npmvc-cli -g
 ```
 
 
-When installed you can use it like this
+When installed you can use it like this:
+
+create directory for a new module:
 ```
+╰─➤mkdir mynodemodule
+╰─➤cd mynodemodule
 ╰─➤npm init
 ╰─➤npm install npmvc
 ```
 
-Now add a 'namespace' property to the package.json like:
+Now add a 'namespace' property to the package.json
 ```
 "namespace":"com.mydomain"
 ```
 
+
+Use commandline to generate code:
 ```
 ╰─➤npmvc-cli boilerplate
+```
+
+
+Use npmvc-cli ClassName (see below for options) for example a Proxy class:
+Then it asks for the Class name that has to be extended.
+```
 ╰─➤npmvc-cli Proxy                
 Running "templating:Proxy" (templating) task
 Set class name for model/Proxy.js
@@ -41,9 +53,13 @@ Now you can use the generated code!
 
 # npmvc-cli options:
 
-boilerplate
+#### basic Startup project
+npmvc-cli boilerplate
 
-## Single Class generation
+#### Single Class generation
+npmvc-cli [Class]
+
+For [Class] you can fill in:
 Service
 Mediator
 ValueObject
