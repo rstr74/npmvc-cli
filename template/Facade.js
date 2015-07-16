@@ -38,7 +38,7 @@ puremvc.define(
      *
      * @static
      * @param {string} multitonKey
-     * @return epuppy.ApplicationFacade
+     * @return {NAME_SPACE}.{FILE_NAME}
      */
     getInstance: function(multitonKey) {
       // all Facade instances, including Facade subclass instances, are stored
