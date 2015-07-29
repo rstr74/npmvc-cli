@@ -93,7 +93,7 @@ module.exports = function(grunt) {
 			}],
 			"Service": [{
 				"class": {
-					"targetPath": kickstarterpath + "/src" + "mediator/service",
+					"targetPath": kickstarterpath + "/src" + "/mediator/service",
 					"template": "mediator/Service.js",
 					"replace": replace
 				}
@@ -126,7 +126,7 @@ module.exports = function(grunt) {
 			grunt.log.ok(options[option]);
 		}
 	});
-	
+		
 	grunt.registerTask('boilerplate', ['templating:boilerplate']);
 	grunt.registerTask('Service', ['templating:Service']);
 	grunt.registerTask('Mediator', ['templating:Mediator']);
@@ -137,8 +137,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('Facade', ['templating:Facade']);
 	grunt.registerTask('MacroCommand', ['templating:MacroCommand']);
 	grunt.registerTask('SimpleCommand', ['templating:SimpleCommand']);
-
-
+	grunt.registerTask('help', ["options:help"]);
 	grunt.registerTask('default', ["options:help"]);
 	
 };
