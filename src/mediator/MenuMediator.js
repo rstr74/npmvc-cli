@@ -79,7 +79,12 @@ module.exports = function(include, puremvc) {
 			},
 			showMenu: function(options) {
 				var self = this;
-
+					var model = this.facade.retrieveProxy(npmvc.cli.model.StartUpProxy.NAME);
+			
+				var config = model.getStartUpValues();
+				var pkg = config.pkg;
+				var root = config.data.extra.root;
+				var kickstarterpath = config.data.extra.path;
 				function send(command,o) {
 					self.facade.sendNotification(command,{
 						label:o
@@ -87,8 +92,11 @@ module.exports = function(include, puremvc) {
 				}
 
 				function mainMenu() {
+				
+
+
 					var menu = createMenu()
-					menu.writeLine(options.HEADER)
+					menu.writeLine(options.HEADER,pkg.name+" - "+pkg.version);
 					menu.writeSeparator()
 					var _self = this;
 					for (var option in options.OPTIONS) {
@@ -105,16 +113,7 @@ module.exports = function(include, puremvc) {
 					menu.add("exit", menu.close)
 				}
 
-				// function subMenu() {
-				// 	var menu = createMenu()
-				// 	menu.writeLine("SubMenu")
-				// 	menu.writeSeparator()
-				// 	menu.add("C", "[selected]", showSelection)
-				// 	menu.add("D", showSelection)
-				// 	menu.writeSeparator()
-				// 	menu.add("cancel", mainMenu)
-				// 	menu.add("exit", menu.close)
-				// }
+			
 
 				mainMenu()
 			},
