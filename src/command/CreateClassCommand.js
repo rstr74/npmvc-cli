@@ -1,4 +1,3 @@
-var grunt = require('grunt');
 var path = require('path');
 var fs = require('fs');
 var mkdirp = require('mkdirp');
