@@ -22,7 +22,8 @@
     "moment": "2.0.0",
     "node-dir": "0.1.8",
     "prompt": "0.2.9",
-    "simple-terminal-menu": "^1.0.0"
+    "simple-terminal-menu": "^1.0.0",
+    "terminal-menu": "^2.1.1"
   },
   "bin": {
     "npmvc-cli": "bin/index.js"
