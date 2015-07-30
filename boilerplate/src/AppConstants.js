@@ -8,9 +8,15 @@
 */
 
 module.exports = function(include, puremvc) {
-	{NAME_SPACE} = {
-		{FILE_NAME}: {
-				SOME_CONSTANT: 'SOME_CONSTANT'
-		}
-	}
+	puremvc.define(
+		// CLASS INFO
+		{
+			name: '{NAME_SPACE}.AppConstants'
+		},
+		// INSTANCE MEMBERS
+		{},
+		// CONSTANTS
+		{
+			SOME_CONSTANT:"SOME_CONSTANT"
+		});
 }

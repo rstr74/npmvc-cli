@@ -18,6 +18,7 @@ module.exports = function(include, puremvc) {
 			/** @override */
 			listNotificationInterests: function() {
 				return [
+					"CREATE_BOILERPLATE",
 					"CREATE_CLASS",
 					"MENU_SELECT",
 					"MENU_CLOSE",
@@ -29,6 +30,10 @@ module.exports = function(include, puremvc) {
 			/** @override */
 			handleNotification: function(note) {
 				switch (note.getName()) {
+					case "CREATE_BOILERPLATE":
+						if(this.menu)
+						this.menu.close();
+					break;
 					case "MENU_SELECT":
 						var label = note.body.label;
 						var index = note.body.index;
@@ -110,12 +115,14 @@ module.exports = function(include, puremvc) {
 					}
 
 					menu.writeSeparator()
-					menu.add("exit", menu.close)
+					menu.add("exit", menu.close);
+					return menu;
 				}
 
 			
 
-				mainMenu()
+				this.menu = mainMenu();
+				
 			},
 			__showMenu: function(options) {
 

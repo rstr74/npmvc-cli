@@ -16,7 +16,7 @@ module.exports = function(include, puremvc) {
 		// CLASS INFO
 		{
 			name: 'npmvc.cli.command.CreateBoilerPlateCommand',
-			parent: puremvc.SimpleCommand
+			parent: puremvc.AsyncCommand
 		},
 		// INSTANCE MEMBERS
 		{
@@ -64,7 +64,7 @@ module.exports = function(include, puremvc) {
 					},
 					function(err, files) {
 						if (err) throw err;
-						console.log('DONE!'.green);
+						self.commandComplete();
 					});
 			},
 

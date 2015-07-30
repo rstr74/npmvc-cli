@@ -2,6 +2,7 @@
 
 var path = require('path');
 var puremvc = require("npmvc");
+require("npmvc-async")(puremvc);
 puremvc.validateIncludePaths = false;
 puremvc.setSourceDir(__dirname + "/../src");
 

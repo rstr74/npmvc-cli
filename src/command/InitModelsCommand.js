@@ -23,7 +23,7 @@ module.exports = function(include, puremvc) {
 		// INSTANCE MEMBERS
 		{
 			execute: function() {
-				console.log("exec npmvc.cli.command.InitModelsCommand");
+				
 			}
 		});
 }

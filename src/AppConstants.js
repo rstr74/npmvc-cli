@@ -16,6 +16,7 @@ module.exports = function(include, puremvc) {
 		{},
 		// CONSTANTS
 		{
+			ENABLE_NPM_INSTALLS:true,
 			MENU_WIDTH: 100,
 			MENU_x: 0,
 			MENU_y: 0,
@@ -25,8 +26,7 @@ module.exports = function(include, puremvc) {
 				HEADER: 'NPMVC-CLI OPTIONS:',
 				OPTIONS: [
 					{'CREATE PUREMVC CLASS':"CLASS_MENU"},
-					{'CREATE PROJECT FROM BOILERPLATE':"CREATE_BOILERPLATE"},
-					// {'SET TEMPLATE DIRECTORY':"SET_TEMPLATE"},
+					{'CREATE PROJECT FROM BOILERPLATE': "CREATE_BOILERPLATE"},
 				]
 			},
 			CLASS_TEMPLATE_REG:{

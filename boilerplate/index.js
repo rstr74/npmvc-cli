@@ -8,10 +8,11 @@
 */
 
 var puremvc = require("npmvc");
-puremvc.validateIncludePaths = true;
+puremvc.validateIncludePaths = false;
 puremvc.setSourceDir( __dirname + "/src");
 
 puremvc.include("AppFacade");
+puremvc.include("AppConstants");
 
 var facade = {NAME_SPACE}.AppFacade.getInstance({NAME_SPACE}.AppFacade.NAME);
 facade.start();

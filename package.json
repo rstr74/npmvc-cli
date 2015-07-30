@@ -1,6 +1,6 @@
 {
   "name": "npmvc-cli",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "commandline code generator for PureMVC in node.js",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,8 @@
     "node-dir": "0.1.8",
     "prompt": "0.2.9",
     "simple-terminal-menu": "^1.0.0",
-    "npmvc": "1.0.6"
+    "npmvc": "1.0.6",
+    "npmvc-async": "1.0.0"
   },
   "bin": {
     "npmvc-cli": "bin/index.js"

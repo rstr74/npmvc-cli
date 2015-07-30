@@ -12,7 +12,8 @@ module.exports = function(include, puremvc) {
 	include("command/HelpCommand");
 	include("command/CreateClassCommand");
 	include("command/CreateBoilerPlateCommand");
-
+	include("command/InstallNpmvcCommand");
+	include("command/ExecPureMVCBoilerPlateCommand");
 	/**
 	 * @class npmvc.cli.command.InitCommandsCommand
 	 */
@@ -25,9 +26,11 @@ module.exports = function(include, puremvc) {
 		// INSTANCE MEMBERS
 		{
 			execute: function() {
+				
+				this.facade.registerCommand("NPM_INSTALL",npmvc.cli.command.InstallNpmvcCommand);
 				this.facade.registerCommand("HELP", npmvc.cli.command.HelpCommand);
 				this.facade.registerCommand("CREATE_CLASS_FROM_TEMPLATE", npmvc.cli.command.CreateClassCommand);
-				this.facade.registerCommand("CREATE_BOILERPLATE", npmvc.cli.command.CreateBoilerPlateCommand);
+				this.facade.registerCommand("CREATE_BOILERPLATE", npmvc.cli.command.ExecPureMVCBoilerPlateCommand);
 			}
 		});
 }

@@ -24,6 +24,7 @@ module.exports = function(include, puremvc) {
 		{
 			execute: function() {
 				console.log("exec {NAME_SPACE}.command.{CLASS_NAME}");
+				console.log({NAME_SPACE}.AppConstants.SOME_CONSTANT);
 			}
 		});
 }
