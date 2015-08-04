@@ -31,16 +31,24 @@ module.exports = function(include, puremvc) {
 							var data = fs.readFileSync(packageJsonFile);
 
 							var json = JSON.parse(data);
-							console.log('"' + json.name + '": "' + json.version + '",');
-							var menu_entry = {};
-							menu_entry[json.name+"@"+json.version] = "SHOW_DEFAULT_MENU";
-							menu.OPTIONS.push(menu_entry);
+							if (json.puremvc != undefined) {
+								console.log('"' + json.name + '": "' + json.version + '",');
+								var menu_entry = {};
+								if (!json.puremvc.template) {
+								
+									menu_entry[json.name + "@" + json.version+(" (no template)")] = "SHOW_DEFAULT_MENU";
+									menu.OPTIONS.push(menu_entry);
+								} else {
+									menu_entry[json.name + "@" + json.version] = "CREATE_STARTUP_TEMPLATE";
+									menu.OPTIONS.push(menu_entry);
+								}
+
+							}
 						}
 					}
 				});
 
-
-				this.facade.sendNotification("CUSTOM_MENU",menu);
+				this.facade.sendNotification("CUSTOM_MENU", menu);
 				this.commandComplete();
 			}
 		});

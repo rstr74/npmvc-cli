@@ -27,7 +27,14 @@ module.exports = function(include, puremvc) {
 				this.addSubCommand(npmvc.cli.command.InstallNpmvcCommand,"npmvc");
 			},
 			onComplete: function() {
-				this.facade.sendNotification("SHOW_DEFAULT_MENU");
+				var menu = {
+						TYPE: "MESSAGE",
+						HEADER: "SUCCESS",
+						MESSAGES: ["","Press ENTER to go back..."
+						]
+					}
+
+					this.facade.sendNotification("MESSAGE_MENU", menu);
 			}
 		});
 

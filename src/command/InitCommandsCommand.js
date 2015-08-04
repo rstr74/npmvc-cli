@@ -15,6 +15,7 @@ module.exports = function(include, puremvc) {
 	include("command/InstallNpmvcCommand");
 	include("command/ExecPureMVCBoilerPlateCommand");
 	include("command/ListNpmvcModulesCommand");
+	include("command/CreateModuleCodeCommand");
 	/**
 	 * @class npmvc.cli.command.InitCommandsCommand
 	 */
@@ -28,6 +29,7 @@ module.exports = function(include, puremvc) {
 		{
 			execute: function() {
 					
+				this.facade.registerCommand("CREATE_STARTUP_TEMPLATE",npmvc.cli.command.CreateModuleCodeCommand);
 				this.facade.registerCommand("LIST_NPM_MODULES",npmvc.cli.command.ListNpmvcModulesCommand);
 				this.facade.registerCommand("NPM_INSTALL",npmvc.cli.command.InstallNpmvcCommand);
 				this.facade.registerCommand("HELP", npmvc.cli.command.HelpCommand);

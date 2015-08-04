@@ -4,68 +4,91 @@ var mkdirp = require('mkdirp');
 var prompt = require('prompt');
 var moment = require('moment');
 var dir = require('node-dir');
-var say = require('say');
 
 module.exports = function(include, puremvc) {
 
 	// include("...");
 
 	/**
-	 * @class npmvc.cli.command.CreateClassCommand
+	 * @class npmvc.cli.command.CreateModuleCodeCommand
 	 */
 	puremvc.define(
 		// CLASS INFO
 		{
-			name: 'npmvc.cli.command.CreateClassCommand',
+			name: 'npmvc.cli.command.CreateModuleCodeCommand',
 			parent: puremvc.SimpleCommand
 		},
 		// INSTANCE MEMBERS
 		{
 			execute: function(note) {
 
+				var root = process.cwd() + "/node_modules/" + note.body.label.split("@")[0];
+				var packageJsonFile = root + "/package.json";
+				if (fs.existsSync(packageJsonFile)) {
+					var data = fs.readFileSync(packageJsonFile);
+
+					var json = JSON.parse(data);
+					if (json.puremvc != undefined) {
+						console.log('"' + json.name + '": "' + json.version + '",');
+						var menu_entry = {};
+						if (!json.puremvc.template) {
+							return;
+						} else {
+							console.log(json.puremvc.template);
+						}
+
+					}
+				}
+				console.log(note.body);
+
+				var templateObject = json.puremvc.template;
+
 				var model = this.facade.retrieveProxy(npmvc.cli.model.StartUpProxy.NAME);
 				console.log("Create new " + note.body.label + " from template:");
 				var config = model.getStartUpValues();
 				var pkg = config.pkg;
-				var root = config.data.extra.root;
+
 				var kickstarterpath = config.data.extra.path;
+
+
 				// Markers in templates
 				var replace = {
 					"NAME_SPACE": pkg.puremvc.namespace,
 					"AUTHOR": pkg.author,
 					"EMAIL": pkg.email
 				};
+
+				var classname = templateObject.template;
 				var taskObject = {
-					"targetPath": kickstarterpath + npmvc.cli.AppConstants.CLASS_TEMPLATE_REG[note.body.label].targetPath,
-					"template": npmvc.cli.AppConstants.CLASS_TEMPLATE_REG[note.body.label].template,
+					"targetPath": kickstarterpath + templateObject.targetPath,
+					"template": templateObject.template,
 					"replace": replace
 				};
 
-				var options = {};
-				var self = this;
+				taskObject.replace["CLASS_NAME"] = "" + classname;
+				taskObject.replace["FILE"] = classname + ".js";
+				taskObject.replace["GENERATED"] = moment().format("DD-MM-YYYY HH:mm");
 
-				var prompt = require('prompt');
-				prompt.start();
-				// output some text to the console as the callback
-				//say.speak("Alex", "Please provide a name for this class:", function() {
-					prompt.addProperties(options, ['classname'], function(err) {
-						console.log(options.classname );
-						if (options.classname) {
-							taskObject.replace["CLASS_NAME"] = "" + options.classname;
-							taskObject.replace["FILE"] = options.classname + ".js";
-							taskObject.replace["GENERATED"] = moment().format("DD-MM-YYYY HH:mm");
-							self.createFromTemplate({
-								"templateFile": root + "/template/" + taskObject.template,
-								"targetFile": taskObject.targetPath + options.classname + ".js",
-								"data": taskObject.replace
-							}, function() {
-								console.log(("DONE! >> " + taskObject.targetPath + options.classname + ".js").green);
-							});
-						} else {
-							self.facade.sendNotification("SHOW_DEFAULT_MENU");
-						}
+				if (!fs.existsSync(taskObject.targetPath)) {
+					this.createFromTemplate({
+						"templateFile": root + "/template/" + taskObject.template + ".js",
+						"targetFile": taskObject.targetPath,
+						"data": taskObject.replace
 					});
-				//});
+					
+				} else {
+					var menu = {
+						TYPE: "MESSAGE",
+						HEADER: "ERROR: FILE EXIST ALREADY!",
+						MESSAGES: [
+							"Please remove ",classname," to save template.", "Press ENTER to go back..."
+						]
+					}
+
+					this.facade.sendNotification("MESSAGE_MENU", menu);
+				}
+
+
 
 			},
 

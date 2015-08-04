@@ -1,5 +1,6 @@
 //var Menu = require('terminal-menu');
-var createMenu = require('simple-terminal-menu')
+var createMenu = require('simple-terminal-menu');
+var say = require('say');
 module.exports = function(include, puremvc) {
 	/**
 	 * @class npmvc.cli.mediator.MenuMediator
@@ -18,6 +19,7 @@ module.exports = function(include, puremvc) {
 			/** @override */
 			listNotificationInterests: function() {
 				return [
+					"MESSAGE_MENU",
 					"CUSTOM_MENU",
 					"CREATE_BOILERPLATE",
 					"CREATE_CLASS",
@@ -31,6 +33,11 @@ module.exports = function(include, puremvc) {
 			/** @override */
 			handleNotification: function(note) {
 				switch (note.getName()) {
+					case "MESSAGE_MENU":
+						if (this.menu)
+							this.menu.close();
+						this.messageMenu(note.body);
+					break;
 					case "CUSTOM_MENU":
 						if (this.menu)
 							this.menu.close();
@@ -90,6 +97,48 @@ module.exports = function(include, puremvc) {
 			addCommands: function(command) {
 				this.commands.push(command);
 			},
+			messageMenu:function(options) {
+				var self = this;
+				var model = this.facade.retrieveProxy(npmvc.cli.model.StartUpProxy.NAME);
+
+				var config = model.getStartUpValues();
+				var pkg = config.pkg;
+				var root = config.data.extra.root;
+				var kickstarterpath = config.data.extra.path;
+
+				function send(command, o) {
+					self.facade.sendNotification(command, {
+						label: o
+					});
+				}
+
+				function mMenu() {
+
+
+
+					var menu = createMenu();
+					var _self = this;
+					menu.writeLine(options.HEADER,"");
+					menu.writeSeparator()
+					for (var m in options.MESSAGES) {
+							menu.writeLine(options.MESSAGES[m],"");
+					}
+					
+					menu.writeSeparator()
+					menu.add("BACK", function() {
+						self.facade.sendNotification("SHOW_DEFAULT_MENU");
+					});
+
+					menu.on('select', function (label) {
+							say.speak('Alex', label);
+					});
+					return menu;
+				}
+
+
+
+				this.menu = mMenu();
+			},
 			showMenu: function(options) {
 				var self = this;
 				var model = this.facade.retrieveProxy(npmvc.cli.model.StartUpProxy.NAME);
@@ -126,13 +175,16 @@ module.exports = function(include, puremvc) {
 
 					menu.writeSeparator();
 					if (options.TYPE != "MAIN_MENU") {
-						menu.add("back", function() {
+						menu.add("BACK", function() {
 							self.facade.sendNotification("SHOW_DEFAULT_MENU");
 						});
 
 					}else {
-						menu.add("exit",menu.close);
+						menu.add("EXIT",menu.close);
 					}
+					menu.on('select', function (label) {
+							say.speak('Alex', label);
+					});
 					return menu;
 				}
 

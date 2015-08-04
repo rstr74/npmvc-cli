@@ -6,7 +6,7 @@
 * @email undefined
 * 
 */
-
+var say = require('say');
 module.exports = function(include, puremvc) {
 
 	include("command/InitModelsCommand");
@@ -28,7 +28,7 @@ module.exports = function(include, puremvc) {
 		// INSTANCE MEMBERS
 		{
 			initializeMacroCommand: function() {
-
+				say.speak('Alex', 'npmvc commandline interface');
 				this.addSubCommand(npmvc.cli.command.InitModelsCommand);
 				this.addSubCommand(npmvc.cli.command.InitMediatorsCommand);
 				this.addSubCommand(npmvc.cli.command.InitServiceCommand);
