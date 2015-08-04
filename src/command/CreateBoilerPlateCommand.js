@@ -28,7 +28,7 @@ module.exports = function(include, puremvc) {
 				var pkg = config.pkg;
 				var root = config.data.extra.root;
 				var kickstarterpath = config.data.extra.path;
-				
+
 				// Markers in templates
 				var replace = {
 					"NAME_SPACE": pkg.puremvc.namespace,
@@ -55,12 +55,14 @@ module.exports = function(include, puremvc) {
 						taskObject.replace["FILE_NAME"] = taskObject.replace["CLASS_NAME"] = path.basename(res, ".js");
 
 						console.log(">> ".green + res.green);
-
-						self.createFromTemplate({
-							"templateFile": filename,
-							"targetFile": path.normalize(kickstarterpath + "/" + res),
-							"data": taskObject.replace
-						}, next);
+						var targetFile = path.normalize(kickstarterpath + "/" + res);
+						if (!fs.existsSync(targetFile)) {
+							self.createFromTemplate({
+								"templateFile": filename,
+								"targetFile": targetFile,
+								"data": taskObject.replace
+							}, next);
+						}
 					},
 					function(err, files) {
 						if (err) throw err;

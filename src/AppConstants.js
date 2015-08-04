@@ -27,6 +27,7 @@ module.exports = function(include, puremvc) {
 				OPTIONS: [
 					{'CREATE PUREMVC CLASS':"CLASS_MENU"},
 					{'CREATE PROJECT FROM BOILERPLATE': "CREATE_BOILERPLATE"},
+					{'LIST MODULES': "LIST_NPM_MODULES"}
 				]
 			},
 			CLASS_TEMPLATE_REG:{

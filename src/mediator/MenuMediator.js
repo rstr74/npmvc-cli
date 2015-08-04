@@ -18,6 +18,7 @@ module.exports = function(include, puremvc) {
 			/** @override */
 			listNotificationInterests: function() {
 				return [
+					"CUSTOM_MENU",
 					"CREATE_BOILERPLATE",
 					"CREATE_CLASS",
 					"MENU_SELECT",
@@ -30,10 +31,15 @@ module.exports = function(include, puremvc) {
 			/** @override */
 			handleNotification: function(note) {
 				switch (note.getName()) {
+					case "CUSTOM_MENU":
+						if (this.menu)
+							this.menu.close();
+						this.showMenu(note.body);
+						break;
 					case "CREATE_BOILERPLATE":
-						if(this.menu)
-						this.menu.close();
-					break;
+						if (this.menu)
+							this.menu.close();
+						break;
 					case "MENU_SELECT":
 						var label = note.body.label;
 						var index = note.body.index;
@@ -54,6 +60,8 @@ module.exports = function(include, puremvc) {
 						}
 						break;
 					case "SHOW_DEFAULT_MENU":
+						if (this.menu)
+							this.menu.close();
 						this.showMenu(npmvc.cli.AppConstants.DEFAULT_MENU);
 						break;
 					case "RESET_MENU":
@@ -67,8 +75,8 @@ module.exports = function(include, puremvc) {
 						this.facade.sendNotification("CREATE_CLASS_FROM_TEMPLATE", {
 							label: label
 						});
-					break;
-				
+						break;
+
 
 				}
 			},
@@ -84,45 +92,54 @@ module.exports = function(include, puremvc) {
 			},
 			showMenu: function(options) {
 				var self = this;
-					var model = this.facade.retrieveProxy(npmvc.cli.model.StartUpProxy.NAME);
-			
+				var model = this.facade.retrieveProxy(npmvc.cli.model.StartUpProxy.NAME);
+
 				var config = model.getStartUpValues();
 				var pkg = config.pkg;
 				var root = config.data.extra.root;
 				var kickstarterpath = config.data.extra.path;
-				function send(command,o) {
-					self.facade.sendNotification(command,{
-						label:o
+
+				function send(command, o) {
+					self.facade.sendNotification(command, {
+						label: o
 					});
 				}
 
+
 				function mainMenu() {
-				
+
 
 
 					var menu = createMenu()
-					menu.writeLine(options.HEADER,pkg.name+" - "+pkg.version);
+					menu.writeLine(options.HEADER, pkg.name + " - " + pkg.version);
 					menu.writeSeparator()
 					var _self = this;
 					for (var option in options.OPTIONS) {
 						for (var o in options.OPTIONS[option]) {
-							(function(command,o) {
+							(function(command, o) {
 								menu.add(o, function() {
-									send(command,o);
+									send(command, o);
 								});
-							}("" + options.OPTIONS[option][o],o));
+							}("" + options.OPTIONS[option][o], o));
 						}
 					}
 
-					menu.writeSeparator()
-					menu.add("exit", menu.close);
+					menu.writeSeparator();
+					if (options.TYPE != "MAIN_MENU") {
+						menu.add("back", function() {
+							self.facade.sendNotification("SHOW_DEFAULT_MENU");
+						});
+
+					}else {
+						menu.add("exit",menu.close);
+					}
 					return menu;
 				}
 
-			
+
 
 				this.menu = mainMenu();
-				
+
 			},
 			__showMenu: function(options) {
 
