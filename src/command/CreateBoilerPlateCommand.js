@@ -54,14 +54,18 @@ module.exports = function(include, puremvc) {
 						taskObject.replace["GENERATED"] = moment().format("DD-MM-YYYY HH:mm");
 						taskObject.replace["FILE_NAME"] = taskObject.replace["CLASS_NAME"] = path.basename(res, ".js");
 
-						console.log(">> ".green + res.green);
+						
 						var targetFile = path.normalize(kickstarterpath + "/" + res);
 						if (!fs.existsSync(targetFile)) {
+							console.log(">> ".green + res.green);
 							self.createFromTemplate({
 								"templateFile": filename,
 								"targetFile": targetFile,
 								"data": taskObject.replace
 							}, next);
+						} else {
+							console.log(">> ".red + targetFile.red +" already exists...");
+							 next();
 						}
 					},
 					function(err, files) {
