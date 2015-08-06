@@ -4,7 +4,7 @@ var mkdirp = require('mkdirp');
 var prompt = require('prompt');
 var moment = require('moment');
 var dir = require('node-dir');
-var say = require('say');
+
 
 module.exports = function(include, puremvc) {
 
@@ -47,7 +47,6 @@ module.exports = function(include, puremvc) {
 				var prompt = require('prompt');
 				prompt.start();
 				// output some text to the console as the callback
-				//say.speak("Alex", "Please provide a name for this class:", function() {
 					prompt.addProperties(options, ['classname'], function(err) {
 						console.log(options.classname );
 						if (options.classname) {
@@ -65,7 +64,7 @@ module.exports = function(include, puremvc) {
 							self.facade.sendNotification("SHOW_DEFAULT_MENU");
 						}
 					});
-				//});
+				
 
 			},
 
